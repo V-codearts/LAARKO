@@ -151,6 +151,7 @@
   <div class="sections" id="sections">
     <div id="works" class="section">WORKS</div>
     <div id="other" class="section">OTHER</div>
+    <div id="about" class="section">ABOUT</div> <!-- NEW duplicate -->
     <div id="returnArrow" class="return-arrow">&#x3C;</div>
   </div>
 
@@ -163,6 +164,7 @@
     const sections = document.getElementById('sections');
     const works = document.getElementById('works');
     const other = document.getElementById('other');
+    const about = document.getElementById('about');
     const returnArrow = document.getElementById('returnArrow');
     const content = document.getElementById('content');
 
@@ -211,7 +213,7 @@
     }
 
     function renderDefaultContent() {
-      if (!works.classList.contains('active') && !other.classList.contains('active')) {
+      if (!works.classList.contains('active') && !other.classList.contains('active') && !about.classList.contains('active')) {
         content.innerHTML = holidayGreeting || '';
       }
     }
@@ -238,7 +240,7 @@
     });
 
     function updateArrowVisibility() {
-      returnArrow.style.display = (works.classList.contains('active') || other.classList.contains('active')) ? 'inline-block' : 'none';
+      returnArrow.style.display = (works.classList.contains('active') || other.classList.contains('active') || about.classList.contains('active')) ? 'inline-block' : 'none';
     }
 
     function selectSection(clicked) {
@@ -246,24 +248,35 @@
         clicked.classList.remove('active');
         works.classList.remove('inactive');
         other.classList.remove('inactive');
+        about.classList.remove('inactive');
         renderDefaultContent();
       } else {
-        [works, other].forEach(s => {
+        [works, other, about].forEach(s => {
           s.classList.remove('active');
           s.classList.add('inactive');
         });
         clicked.classList.add('active');
         clicked.classList.remove('inactive');
-        content.innerHTML = 'COMING SOON';
+        if (clicked === about) {
+          content.innerHTML = `
+            LAARKO IS A VISION UNDER DEVELOPMENT.<br>
+            FOR NOW, THIS IS A PORTFOLIO.<br><br>
+            LAARKO AIMS TO CREATE, INNOVATE, AND ASPIRATIONALLY SHAPE THE FUTURE.<br><br>
+            WITH JESUS, INNOVATION MOVES FORWARD — NOT BACK.
+          `;
+        } else {
+          content.innerHTML = 'COMING SOON';
+        }
       }
       updateArrowVisibility();
     }
 
     works.addEventListener('click', e => { e.stopPropagation(); selectSection(works); });
     other.addEventListener('click', e => { e.stopPropagation(); selectSection(other); });
+    about.addEventListener('click', e => { e.stopPropagation(); selectSection(about); });
     returnArrow.addEventListener('click', e => {
       e.stopPropagation();
-      [works, other].forEach(s => s.classList.remove('active','inactive'));
+      [works, other, about].forEach(s => s.classList.remove('active','inactive'));
       renderDefaultContent();
       updateArrowVisibility();
     });
