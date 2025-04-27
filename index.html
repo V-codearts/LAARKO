@@ -3,23 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>LAARKO</title>
   <meta name="description" content="LAARKO">
-
   <link rel="icon" href="logo.ico" type="image/x-icon">
-
   <meta property="og:title" content="LAARKO">
   <meta property="og:description" content="LAARKO">
   <meta property="og:image" content="https://laarko.com/logo.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://laarko.com/">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="LAARKO">
   <meta name="twitter:description" content="LAARKO">
   <meta name="twitter:image" content="https://laarko.com/logo.png">
-
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
@@ -54,8 +49,8 @@
       font-family: 'Roboto Mono', monospace;
       font-size: 50px;
       position: fixed;
-      top: -10px;
-      right: 20px;
+      top: -15px;
+      right: 12px;
       user-select: none;
       z-index: 10;
       transition: opacity 0.5s;
@@ -109,11 +104,14 @@
       position: fixed;
       top: 20px;
       left: 160px;
-      right: 80px;
-      bottom: 60px;
+      right: 50px;
+      bottom: 20px;
       overflow-y: auto;
       z-index: 5;
       transition: opacity 0.5s;
+      word-wrap: break-word; /* Allow long words to break */
+      overflow-wrap: break-word; /* Ensure wrapping of long words */
+      word-break: break-word; /* Force words to break if needed */
     }
 
     .footer {
@@ -151,7 +149,7 @@
   <div class="sections" id="sections">
     <div id="works" class="section">WORKS</div>
     <div id="other" class="section">OTHER</div>
-    <div id="about" class="section">ABOUT</div> <!-- NEW duplicate -->
+    <div id="about" class="section">ABOUT</div> <!-- Duplicate section for ABOUT -->
     <div id="returnArrow" class="return-arrow">&#x3C;</div>
   </div>
 
