@@ -109,9 +109,9 @@
       overflow-y: auto;
       z-index: 5;
       transition: opacity 0.5s;
-      word-wrap: break-word; /* Allow long words to break */
-      overflow-wrap: break-word; /* Ensure wrapping of long words */
-      word-break: break-word; /* Force words to break if needed */
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     .footer {
@@ -149,7 +149,7 @@
   <div class="sections" id="sections">
     <div id="works" class="section">WORKS</div>
     <div id="other" class="section">OTHER</div>
-    <div id="about" class="section">ABOUT</div> <!-- Duplicate section for ABOUT -->
+    <div id="about" class="section">ABOUT</div>
     <div id="returnArrow" class="return-arrow">&#x3C;</div>
   </div>
 
@@ -166,53 +166,18 @@
     const returnArrow = document.getElementById('returnArrow');
     const content = document.getElementById('content');
 
-    function isEaster(date) {
-      const Y = date.getFullYear(), a = Y % 19, b = Math.floor(Y / 100);
-      const c = Y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
-      const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
-      const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
-      const m = Math.floor((a + 11 * h + 22 * l) / 451);
-      const month = Math.floor((h + l - 7 * m + 114) / 31);
-      const day = ((h + l - 7 * m + 114) % 31) + 1;
-      return date.getMonth() + 1 === month && date.getDate() === day;
-    }
-
-    function isThanksgiving(date) {
-      if (date.getMonth() + 1 !== 11) return false;
-      let d = new Date(date.getFullYear(), 10, 1), thursdays = 0;
-      while (d.getMonth() === 10) {
-        if (d.getDay() === 4) thursdays++;
-        if (thursdays === 4) break;
-        d.setDate(d.getDate() + 1);
-      }
-      return date.getDate() === d.getDate();
-    }
-
-    function getHolidayGreeting(now) {
-      const month = now.getMonth() + 1;
-      const date = now.getDate();
-      if (month === 12 && date === 25) return 'CHRIST IS BORN, MERRY CHRISTMAS!';
-      if (isEaster(now)) return 'CHRIST IS RISEN, HAPPY EASTER!';
-      if (isThanksgiving(now)) return 'HAPPY THANKSGIVING!';
-      if (month === 1 && date === 1) return 'HAPPY NEW YEAR!';
-      return '';
-    }
-
-    let holidayGreeting = '';
-
     function updateDateTime() {
       const now = new Date();
       const days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
       document.getElementById('day').textContent = days[now.getDay()];
       document.getElementById('date').textContent = `${now.getDate()} ${now.getMonth() + 1} ${now.getFullYear()}`;
       document.getElementById('time').textContent = now.toLocaleTimeString('en-GB').toUpperCase();
-      holidayGreeting = getHolidayGreeting(now);
       renderDefaultContent();
     }
 
     function renderDefaultContent() {
       if (!works.classList.contains('active') && !other.classList.contains('active') && !about.classList.contains('active')) {
-        content.innerHTML = holidayGreeting || '';
+        content.innerHTML = "DELAY<br>STAY TUNED";
       }
     }
 
@@ -293,3 +258,4 @@
   </script>
 </body>
 </html>
+
