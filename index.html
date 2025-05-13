@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LAARKO</title>
-  <meta name="description" content="LAARKO">
-  <link rel="icon" href="logo.ico" type="image/x-icon">
-  <meta property="og:title" content="LAARKO">
-  <meta property="og:description" content="LAARKO">
-  <meta property="og:image" content="https://laarko.com/logo.png">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://laarko.com/">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="LAARKO">
-  <meta name="twitter:description" content="LAARKO">
-  <meta name="twitter:image" content="https://laarko.com/logo.png">
+  <link rel="icon" href="logo.ico" type="image/x-icon" />
+  <meta name="description" content="LAARKO" />
+  <meta property="og:title" content="LAARKO" />
+  <meta property="og:description" content="LAARKO" />
+  <meta property="og:image" content="https://laarko.com/logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://laarko.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LAARKO" />
+  <meta name="twitter:description" content="LAARKO" />
+  <meta name="twitter:image" content="https://laarko.com/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-
     html, body {
       margin: 0;
       padding: 0;
@@ -28,8 +27,8 @@
       text-transform: uppercase;
       height: 100%;
       user-select: none;
-      transition: background 0.3s, color 0.3s;
       overflow-x: hidden;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .fixed-panel {
@@ -40,20 +39,17 @@
       flex-direction: column;
       gap: 5px;
       z-index: 10;
-      transition: opacity 0.5s;
     }
 
     .dark-mode-toggle {
       cursor: pointer;
       font-weight: bold;
-      font-family: 'Roboto Mono', monospace;
       font-size: 50px;
       position: fixed;
       top: -15px;
       right: 12px;
       user-select: none;
       z-index: 10;
-      transition: opacity 0.5s;
     }
 
     .sections {
@@ -75,6 +71,8 @@
     .section, .return-arrow {
       cursor: pointer;
       user-select: none;
+      font-size: 20px;
+      color: inherit;
     }
 
     .section.active {
@@ -87,6 +85,7 @@
 
     .section:hover {
       font-weight: bold;
+      transition: opacity 0.3s;
     }
 
     .return-arrow {
@@ -104,23 +103,92 @@
       position: fixed;
       top: 20px;
       left: 160px;
-      right: 50px;
+      right: 80px;
       bottom: 20px;
       overflow-y: auto;
       z-index: 5;
-      transition: opacity 0.5s;
       word-wrap: break-word;
-      overflow-wrap: break-word;
-      word-break: break-word;
     }
 
     .footer {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      color: rgba(0, 0, 0, 0.5);
+      color: gray;
       z-index: 8;
-      transition: opacity 0.5s;
+    }
+
+    .works-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+    }
+
+    .work-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .viewer-mode .fixed-panel,
+    .viewer-mode .sections {
+      display: none !important;
+    }
+
+    .viewer-scroll-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox */
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+    
+    .viewer-scroll-wrapper::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, and newer Edge */
+    }
+
+    .viewer-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .viewer-image {
+      max-width: 80%;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+
+    .viewer-return {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 20px;
+      color: inherit;
+      opacity: 0.3;
+      transition: opacity 0.3s;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .viewer-return:hover {
+      opacity: 1;
+      font-weight: bold;
     }
 
     body.dark {
@@ -129,11 +197,7 @@
     }
 
     body.dark .footer {
-      color: rgba(224, 224, 224, 0.5);
-    }
-
-    .faded {
-      opacity: 0.1 !important;
+      color: gray;
     }
   </style>
 </head>
@@ -155,7 +219,7 @@
 
   <div class="content" id="content"></div>
 
-  <div class="footer" id="footer">© LAARKO</div>
+  <div class="footer">© LAARKO</div>
 
   <script>
     const fixedPanel = document.getElementById('fixedPanel');
@@ -166,44 +230,100 @@
     const returnArrow = document.getElementById('returnArrow');
     const content = document.getElementById('content');
 
-    function updateDateTime() {
-      const now = new Date();
-      const days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
-      document.getElementById('day').textContent = days[now.getDay()];
-      document.getElementById('date').textContent = `${now.getDate()} ${now.getMonth() + 1} ${now.getFullYear()}`;
-      document.getElementById('time').textContent = now.toLocaleTimeString('en-GB').toUpperCase();
-      renderDefaultContent();
-    }
-
-    function renderDefaultContent() {
-      if (!works.classList.contains('active') && !other.classList.contains('active') && !about.classList.contains('active')) {
-        content.innerHTML = "DELAY<br>STAY TUNED";
-      }
-    }
-
-    function positionSections() {
-      const panelRect = fixedPanel.getBoundingClientRect();
-      sections.style.top = `${panelRect.bottom + 20}px`;
-    }
-
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-    positionSections();
+    const viewerImages = ['kuva1.png', 'kuva2.png', 'kuva3.png'];
+    let currentViewerIndex = 0;
+    let infoVisible = false;
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark');
     }
 
-    let sectionsVisible = false;
-    document.body.addEventListener('click', e => {
-      if (e.target.closest('.section') || e.target.closest('.dark-mode-toggle') || e.target.closest('.return-arrow')) return;
-      positionSections();
-      sectionsVisible = !sectionsVisible;
-      sections.classList.toggle('show', sectionsVisible);
-    });
+    function updateDateTime() {
+      const now = new Date();
+      const days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+      document.getElementById('day').textContent = days[now.getDay()];
+      document.getElementById('date').textContent = now.getDate() + ' ' + (now.getMonth() + 1) + ' ' + now.getFullYear();
+      document.getElementById('time').textContent = now.toLocaleTimeString('en-GB').toUpperCase();
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    function positionSections() {
+      const panelRect = fixedPanel.getBoundingClientRect();
+      sections.style.top = (panelRect.bottom + 20) + 'px';
+    }
 
     function updateArrowVisibility() {
       returnArrow.style.display = (works.classList.contains('active') || other.classList.contains('active') || about.classList.contains('active')) ? 'inline-block' : 'none';
+    }
+
+    function renderDefaultContent() {
+      if (!works.classList.contains('active') && !other.classList.contains('active') && !about.classList.contains('active')) {
+        content.innerHTML = '';
+      }
+    }
+
+    function cycleViewerImage() {
+      currentViewerIndex = (currentViewerIndex + 1) % viewerImages.length;
+      const viewerImg = document.querySelector('.viewer-image');
+      if (viewerImg) viewerImg.src = viewerImages[currentViewerIndex];
+    }
+
+    function toggleInfo() {
+      infoVisible = !infoVisible;
+      const info = document.getElementById('viewerInfo');
+      const toggle = document.getElementById('infoToggle');
+      if (infoVisible) {
+        info.style.display = 'block';
+        toggle.textContent = '-';
+      } else {
+        info.style.display = 'none';
+        toggle.textContent = '+';
+      }
+    }
+
+    function enterViewerMode() {
+      currentViewerIndex = 0;
+      infoVisible = false;
+      document.body.classList.add('viewer-mode');
+      content.innerHTML = `
+       <div class="viewer-return" onclick="exitViewerMode()">&lt;</div>
+       <div class="viewer-scroll-wrapper" style="overflow-y: auto; height: 100vh;">
+         <div class="viewer-container" style="position: relative; top: 50px;">
+           <img src="${viewerImages[currentViewerIndex]}" class="viewer-image" alt="Work Image" onclick="cycleViewerImage()">
+    
+           <!-- + toggle button centered -->
+           <div id="infoToggle" onclick="toggleInfo()" 
+                style="position: absolute; top: calc(50% + 135px); left: 50%; transform: translateX(-50%); cursor: pointer; font-family: 'Roboto Mono', monospace; font-size: 20px; user-select: none; z-index: 11;">+</div>
+           
+           <!-- Info text centered below -->
+           <div id="viewerInfo" 
+                style="display: none; position: absolute; top: calc(50% + 175px); left: 50%; transform: translateX(-50%); text-align: center; font-family: 'Roboto Mono', monospace; font-size: 20px; max-width: 90vw; line-height: 1.3; z-index: 10;">
+             TEETH PROTOTYPE<br><br>
+             3D PRINTED USING LASER SINTERING TECHNOLOGY<br><br>
+             BASED ON DENTAL IMPRESSION SCANNED VIA PHONE<br><br>
+             INSPIRATION SELF-YEVIDENT<br><br>
+           </div>
+         </div>
+       </div>
+       <div class="footer" style="position: fixed; bottom: 20px; left: 20px; opacity: 0.5;">© LAARKO</div>      `;
+    }
+
+    function exitViewerMode() {
+      document.body.classList.remove('viewer-mode');
+      [works, other, about].forEach(s => {
+        s.classList.remove('active');
+        s.classList.add('inactive');
+      });
+      works.classList.add('active');
+      works.classList.remove('inactive');
+      content.innerHTML = `
+        <div class="works-container">
+          <img src="kuva1.png" class="work-image" alt="Work Image" onclick="enterViewerMode()">
+        </div>
+      `;
+      updateArrowVisibility();
     }
 
     function selectSection(clicked) {
@@ -221,11 +341,12 @@
         clicked.classList.add('active');
         clicked.classList.remove('inactive');
         if (clicked === about) {
+          content.innerHTML = `LAARKO IS A VISION UNDER DEVELOPMENT.<br>FOR NOW, THIS IS A PORTFOLIO.<br><br>LAARKO AIMS TO DESIGN, CREATE, INNOVATE, AND ASPIRATIONALLY SHAPE THE FUTURE.<br>WITH JESUS, INNOVATION MOVES FORWARD — NOT BACK.`;
+        } else if (clicked === works) {
           content.innerHTML = `
-            LAARKO IS A VISION UNDER DEVELOPMENT.<br>
-            FOR NOW, THIS IS A PORTFOLIO.<br><br>
-            LAARKO AIMS TO DESIGN, CREATE, INNOVATE, AND ASPIRATIONALLY SHAPE THE FUTURE.<br>
-            WITH JESUS, INNOVATION MOVES FORWARD — NOT BACK.
+            <div class="works-container">
+              <img src="kuva1.png" class="work-image" alt="Work Image" onclick="enterViewerMode()">
+            </div>
           `;
         } else {
           content.innerHTML = 'COMING SOON';
@@ -239,9 +360,17 @@
     about.addEventListener('click', e => { e.stopPropagation(); selectSection(about); });
     returnArrow.addEventListener('click', e => {
       e.stopPropagation();
-      [works, other, about].forEach(s => s.classList.remove('active','inactive'));
+      [works, other, about].forEach(s => s.classList.remove('active', 'inactive'));
       renderDefaultContent();
       updateArrowVisibility();
+    });
+
+    let sectionsVisible = false;
+    document.body.addEventListener('click', e => {
+      if (e.target.closest('.section') || e.target.closest('.dark-mode-toggle') || e.target.closest('.return-arrow')) return;
+      positionSections();
+      sectionsVisible = !sectionsVisible;
+      sections.classList.toggle('show', sectionsVisible);
     });
 
     let inactivityTimer;
@@ -252,10 +381,10 @@
         sections.classList.remove('show');
       }, 10000);
     }
+
     ['mousemove','mousedown','touchstart','keypress'].forEach(evt => document.addEventListener(evt, resetInactivityTimer));
     resetInactivityTimer();
     updateArrowVisibility();
   </script>
 </body>
 </html>
-
