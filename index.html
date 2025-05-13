@@ -118,7 +118,7 @@
       z-index: 8;
     }
 
-    .works-container {
+    .gallery-container {
       display: flex;
       width: 100%;
       height: 100%;
@@ -146,8 +146,8 @@
       right: 0;
       bottom: 0;
       overflow-y: auto;
-      -ms-overflow-style: none;  /* Internet Explorer 10+ */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       display: flex;
       flex-direction: column;
@@ -156,9 +156,9 @@
       box-sizing: border-box;
       z-index: 1;
     }
-    
+
     .viewer-scroll-wrapper::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, and newer Edge */
+      display: none;
     }
 
     .viewer-container {
@@ -211,7 +211,7 @@
   <div class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()">.</div>
 
   <div class="sections" id="sections">
-    <div id="works" class="section">WORKS</div>
+    <div id="gallery" class="section">GALLERY</div>
     <div id="other" class="section">OTHER</div>
     <div id="about" class="section">ABOUT</div>
     <div id="returnArrow" class="return-arrow">&#x3C;</div>
@@ -224,7 +224,7 @@
   <script>
     const fixedPanel = document.getElementById('fixedPanel');
     const sections = document.getElementById('sections');
-    const works = document.getElementById('works');
+    const gallery = document.getElementById('gallery');
     const other = document.getElementById('other');
     const about = document.getElementById('about');
     const returnArrow = document.getElementById('returnArrow');
@@ -255,11 +255,11 @@
     }
 
     function updateArrowVisibility() {
-      returnArrow.style.display = (works.classList.contains('active') || other.classList.contains('active') || about.classList.contains('active')) ? 'inline-block' : 'none';
+      returnArrow.style.display = (gallery.classList.contains('active') || other.classList.contains('active') || about.classList.contains('active')) ? 'inline-block' : 'none';
     }
 
     function renderDefaultContent() {
-      if (!works.classList.contains('active') && !other.classList.contains('active') && !about.classList.contains('active')) {
+      if (!gallery.classList.contains('active') && !other.classList.contains('active') && !about.classList.contains('active')) {
         content.innerHTML = '';
       }
     }
@@ -291,13 +291,11 @@
        <div class="viewer-return" onclick="exitViewerMode()">&lt;</div>
        <div class="viewer-scroll-wrapper" style="overflow-y: auto; height: 100vh;">
          <div class="viewer-container" style="position: relative; top: 50px;">
-           <img src="${viewerImages[currentViewerIndex]}" class="viewer-image" alt="Work Image" onclick="cycleViewerImage()">
-    
-           <!-- + toggle button centered -->
+           <img src="${viewerImages[currentViewerIndex]}" class="viewer-image" alt="Gallery Image" onclick="cycleViewerImage()">
+
            <div id="infoToggle" onclick="toggleInfo()" 
                 style="position: absolute; top: calc(50% + 135px); left: 50%; transform: translateX(-50%); cursor: pointer; font-family: 'Roboto Mono', monospace; font-size: 20px; user-select: none; z-index: 11;">+</div>
            
-           <!-- Info text centered below -->
            <div id="viewerInfo" 
                 style="display: none; position: absolute; top: calc(50% + 175px); left: 50%; transform: translateX(-50%); text-align: center; font-family: 'Roboto Mono', monospace; font-size: 20px; max-width: 90vw; line-height: 1.3; z-index: 10;">
              TEETH PROTOTYPE<br><br>
@@ -307,20 +305,20 @@
            </div>
          </div>
        </div>
-       <div class="footer" style="position: fixed; bottom: 20px; left: 20px; opacity: 0.5;">© LAARKO</div>      `;
+       <div class="footer" style="position: fixed; bottom: 20px; left: 20px; opacity: 0.5;">© LAARKO</div>`;
     }
 
     function exitViewerMode() {
       document.body.classList.remove('viewer-mode');
-      [works, other, about].forEach(s => {
+      [gallery, other, about].forEach(s => {
         s.classList.remove('active');
         s.classList.add('inactive');
       });
-      works.classList.add('active');
-      works.classList.remove('inactive');
+      gallery.classList.add('active');
+      gallery.classList.remove('inactive');
       content.innerHTML = `
-        <div class="works-container">
-          <img src="kuva1.png" class="work-image" alt="Work Image" onclick="enterViewerMode()">
+        <div class="gallery-container">
+          <img src="kuva1.png" class="work-image" alt="Gallery Image" onclick="enterViewerMode()">
         </div>
       `;
       updateArrowVisibility();
@@ -329,12 +327,12 @@
     function selectSection(clicked) {
       if (clicked.classList.contains('active')) {
         clicked.classList.remove('active');
-        works.classList.remove('inactive');
+        gallery.classList.remove('inactive');
         other.classList.remove('inactive');
         about.classList.remove('inactive');
         renderDefaultContent();
       } else {
-        [works, other, about].forEach(s => {
+        [gallery, other, about].forEach(s => {
           s.classList.remove('active');
           s.classList.add('inactive');
         });
@@ -342,10 +340,10 @@
         clicked.classList.remove('inactive');
         if (clicked === about) {
           content.innerHTML = `LAARKO IS A VISION UNDER DEVELOPMENT.<br>FOR NOW, THIS IS A PORTFOLIO.<br><br>LAARKO AIMS TO DESIGN, CREATE, INNOVATE, AND ASPIRATIONALLY SHAPE THE FUTURE.<br>WITH JESUS, INNOVATION MOVES FORWARD — NOT BACK.`;
-        } else if (clicked === works) {
+        } else if (clicked === gallery) {
           content.innerHTML = `
-            <div class="works-container">
-              <img src="kuva1.png" class="work-image" alt="Work Image" onclick="enterViewerMode()">
+            <div class="gallery-container">
+              <img src="kuva1.png" class="work-image" alt="Gallery Image" onclick="enterViewerMode()">
             </div>
           `;
         } else {
@@ -355,12 +353,12 @@
       updateArrowVisibility();
     }
 
-    works.addEventListener('click', e => { e.stopPropagation(); selectSection(works); });
+    gallery.addEventListener('click', e => { e.stopPropagation(); selectSection(gallery); });
     other.addEventListener('click', e => { e.stopPropagation(); selectSection(other); });
     about.addEventListener('click', e => { e.stopPropagation(); selectSection(about); });
     returnArrow.addEventListener('click', e => {
       e.stopPropagation();
-      [works, other, about].forEach(s => s.classList.remove('active', 'inactive'));
+      [gallery, other, about].forEach(s => s.classList.remove('active', 'inactive'));
       renderDefaultContent();
       updateArrowVisibility();
     });
